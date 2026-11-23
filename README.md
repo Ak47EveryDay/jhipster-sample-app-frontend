@@ -4,6 +4,12 @@ Angular frontend of the JHipster sample application (bank accounts, labels and o
 
 It talks to the backend over HTTP only. The backend lives in a separate repository, [jhipster-sample-app-backend](https://github.com/Ak47EveryDay/jhipster-sample-app-backend).
 
+## Documentation (Japanese)
+
+Standards and system knowledge, written in Japanese and based on this repository's code, are in [docs/](docs/README.md):
+
+- [docs/999_標準化](docs/999_標準化/README.md): project structure and layering, common components, main processing flows, naming and coding conventions, test conventions, build and environment settings, development procedures, development checklist
+
 ## Requirements
 
 - Node.js 24.21 or later
