@@ -1,0 +1,155 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "jhipster-sample-application": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "jhi",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-esbuild:application",
+          "options": {
+            "plugins": ["build-plugins/i18n-esbuild.ts", "build-plugins/define-esbuild.ts"],
+            "outputPath": {
+              "base": "dist/jhipster-sample-app-frontend/",
+              "browser": "",
+              "server": "node-server",
+              "media": "resources"
+            },
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": ["@angular/localize/init"],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["src/content", "src/favicon.ico", "src/manifest.webapp", "src/robots.txt", "src/swagger-ui"],
+            "styles": ["src/content/scss/vendor.scss", "src/content/scss/global.scss"],
+            "scripts": [],
+            "define": {
+              "SERVER_API_URL": "''"
+            }
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-esbuild:dev-server",
+          "options": {
+            "buildTarget": "jhipster-sample-application:build:development",
+            "open": true,
+            "proxyConfig": "proxy.config.mjs",
+            "port": 9060
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "jhipster-sample-application:build:production"
+            },
+            "development": {
+              "buildTarget": "jhipster-sample-application:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "runner": "vitest",
+            "buildTarget": "::development",
+            "runnerConfig": true,
+            "coverageReporters": ["text", "lcov"],
+            "reporters": [
+              "default",
+              [
+                "vitest-sonar-reporter",
+                {
+                  "outputFile": "./coverage/TESTS-results-sonar-vitest.xml"
+                }
+              ]
+            ],
+            "watch": false,
+            "tsConfig": "tsconfig.spec.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "browser": "chrome"
+          },
+          "configurations": {
+            "baseHref": {
+              "headless": true,
+              "baseUrl": "http://localhost:9060"
+            },
+            "open": {
+              "watch": true,
+              "devServerTarget": "jhipster-sample-application:serve"
+            },
+            "openProduction": {
+              "watch": true,
+              "devServerTarget": "jhipster-sample-application:serve:production"
+            },
+            "run": {
+              "headless": true,
+              "devServerTarget": "jhipster-sample-application:serve"
+            },
+            "runProduction": {
+              "headless": true,
+              "devServerTarget": "jhipster-sample-application:serve:production"
+            }
+          },
+          "defaultConfiguration": "open"
+        }
+      }
+    }
+  },
+  "cli": {
+    "cache": {
+      "enabled": true,
+      "path": ".angular/cache",
+      "environment": "all"
+    },
+    "packageManager": "npm"
+  }
+}
