@@ -6,3 +6,6 @@ package-lock.json
 dist
 .angular
 coverage
+
+# Written by the Lighthouse audits (npm run e2e:audits)
+cypress/lhreport.html

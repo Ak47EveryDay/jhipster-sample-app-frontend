@@ -8,6 +8,9 @@ import { globSync } from 'tinyglobby';
 
 const require = createRequire(import.meta.url);
 
+// The services build their URLs as `${serverApiUrl}api/...`, so the base URL has to end with a slash.
+const withTrailingSlash = (url: string): string => (url !== '' && !url.endsWith('/') ? `${url}/` : url);
+
 const outputFile = (filePath: string, contents: Uint8Array): OutputFile => ({
   path: filePath,
   contents,
@@ -29,7 +32,7 @@ export default {
     // If you use an API server, in `prod` mode, you will need to enable CORS
     // (see the `jhipster.cors` common JHipster property in the `application-*.yml` configurations)
     // Set the `SERVER_API_URL` environment variable at build time to use another origin instead.
-    build.initialOptions.define.SERVER_API_URL = JSON.stringify(process.env.SERVER_API_URL ?? '');
+    build.initialOptions.define.SERVER_API_URL = JSON.stringify(withTrailingSlash(process.env.SERVER_API_URL ?? ''));
 
     // Emit the swagger-ui libraries with the build output, next to the swagger-ui/index.html asset.
     // The page itself stays an angular.json asset: the dev server serves html files from the assets only.
