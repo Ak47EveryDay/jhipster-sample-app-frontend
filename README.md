@@ -6,9 +6,10 @@ It talks to the backend over HTTP only. The backend lives in a separate reposito
 
 ## Documentation (Japanese)
 
-Standards and system knowledge, written in Japanese and based on this repository's code, are in [docs/](docs/README.md):
+Japanese documentation, based on this repository's code, is in [docs/](docs/README.md):
 
-- [docs/999_標準化](docs/999_標準化/README.md): project structure and layering, common components, main processing flows, naming and coding conventions, test conventions, build and environment settings, development procedures, development checklist
+- [docs/050_設計](docs/050_設計/README.md): screen and interface design — application overview, per-screen design documents with input-check lists, common parts, DTO documents, message layouts, summary tables
+- [docs/999_標準化](docs/999_標準化/README.md): standards and system knowledge — project structure and layering, common components, main processing flows, naming and coding conventions, test conventions, build and environment settings, development procedures, development checklist
 
 ## Requirements
 
